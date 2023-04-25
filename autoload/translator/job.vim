@@ -79,6 +79,8 @@ function! s:start(type, data, event) abort
       call translator#action#echo(translations)
     elseif a:type == 'window'
       call translator#action#window(translations)
+    elseif a:type == 'notify'
+      call translator#action#notify(translations)
     else
       call translator#action#replace(translations)
     endif

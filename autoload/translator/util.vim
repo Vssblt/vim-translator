@@ -4,6 +4,11 @@
 " GitHub: https://github.com/voldikss
 " ============================================================================
 
+function! translator#util#notify(group, msg) abort
+  if a:msg == '' | return | endif
+  call nvim_notify(a:msg, 2, { "title":"Translator Message", "timeout" : 30000})
+endfunction
+
 function! translator#util#echo(group, msg) abort
   if a:msg == '' | return | endif
   execute 'echohl' a:group

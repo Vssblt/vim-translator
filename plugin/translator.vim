@@ -33,6 +33,7 @@ nnoremap <silent> <Plug>Translate   :Translate<CR>
 vnoremap <silent> <Plug>TranslateV  :Translate<CR>
 nnoremap <silent> <Plug>TranslateW  :TranslateW<CR>
 vnoremap <silent> <Plug>TranslateWV :TranslateW<CR>
+nnoremap <silent> <Plug>TranslateN  :TranslateN<CR>
 nnoremap <silent> <Plug>TranslateR  viw:<C-u>TranslateR<CR>
 vnoremap <silent> <Plug>TranslateRV :TranslateR<CR>
 nnoremap <silent> <Plug>TranslateX  :TranslateX<CR>
@@ -52,6 +53,10 @@ command! -complete=customlist,translator#cmdline#complete -nargs=* -bang -range
 command! -complete=customlist,translator#cmdline#complete -nargs=* -bang -range
   \ TranslateX
   \ call translator#start('echo', <bang>0, <range>, <line1>, <line2>, <q-args> . ' ' . @*)
+
+command! -complete=customlist,translator#cmdline#complete -nargs=* -bang -range
+  \ TranslateN
+  \ call translator#start('notify', <bang>0, <range>, <line1>, <line2>, <q-args>)
 
 command! -nargs=0   TranslateH call translator#history#export()
 

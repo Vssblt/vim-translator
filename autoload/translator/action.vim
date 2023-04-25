@@ -42,6 +42,41 @@ function! translator#action#window(translations) abort
   call translator#window#open(content)
 endfunction
 
+function! translator#action#notify(translations) abort
+  let phonetic = ''
+  let paraphrase = ''
+  let explains = ''
+
+  for t in a:translations['results']
+    if !empty(t.phonetic) && empty(phonetic)
+      let phonetic = printf('[%s]', t.phonetic)
+    endif
+    if !empty(t.paraphrase) && empty(paraphrase)
+      let paraphrase = t.paraphrase
+    endif
+    if !empty(t.explains) && empty(explains)
+      let explains = join(t.explains, ' ')
+    endif
+  endfor
+
+  if len(a:translations['text']) > 30
+    let text = a:translations['text'][:30] . '...'
+  else
+    let text = a:translations['text']
+  endif
+  
+  
+  let paraphrase_lines = ""
+  while len(paraphrase)
+    let paraphrase_lines = l:paraphrase_lines .. strcharpart(l:paraphrase, 0, 24) .. " \n"
+    let paraphrase = strcharpart(l:paraphrase, 24)
+  endwhile
+
+  let line = text .. phonetic .. "\n\n" .. paraphrase_lines .. explains
+
+  call translator#util#notify('Function', line)
+endfunction
+
 function! translator#action#echo(translations) abort
   let phonetic = ''
   let paraphrase = ''
